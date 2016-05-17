@@ -1,4 +1,5 @@
 #!/bin/sh
+#====================  122  ============================
 gcc -o libHello.so -shared -fPIC hello.c  #creating dinamic library, fPIC - needed for 64 bit linux
 
 nm libHello.so #the list of what we have in a library
@@ -14,3 +15,17 @@ export LD_LIBRARY_PATH=.
 #could check the path as
 echo $LD_LIBRARY_PATH
 
+#==================== 123 =============================
+
+rm libHello.so 
+mv hello.c hello.cpp #using c++
+gcc -shared -o libHello.so -fPIC hello.cpp #recompiling using c++ compiler
+nm libHello.so
+#output - 00000000000006d5 T _Z13hello_messagePKc
+c++filt _Z13hello_messagePKc
+#output - hello_message(char const*)
+
+#add extern "C" to hello.h, recompile the lib and all works
+gcc -shared -o libHello.so -fPIC hello.cpp
+nm libHello.so 
+#output now 00000000000006c5 T hello_message
