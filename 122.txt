@@ -1,0 +1,16 @@
+#!/bin/sh
+gcc -o libHello.so -shared -fPIC hello.c  #creating dinamic library, fPIC - needed for 64 bit linux
+
+nm libHello.so #the list of what we have in a library
+
+gcc -o hello main.c libHello.so #making executable referring to dinamic library
+
+#without setting relevant path linux does not know where to look for the lib
+
+#setting the path (works till the end of the session only)
+
+export LD_LIBRARY_PATH=.
+
+#could check the path as
+echo $LD_LIBRARY_PATH
+
