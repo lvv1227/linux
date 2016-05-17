@@ -29,3 +29,11 @@ c++filt _Z13hello_messagePKc
 gcc -shared -o libHello.so -fPIC hello.cpp
 nm libHello.so 
 #output now 00000000000006c5 T hello_message
+
+#===================  124  ============================
+#makefile
+# - minus before the command name stops the command from throwing error (eg when file is absent)
+#gcc options: L. - set the current directory, lHello - the name of the library (gcc adds lib in the beginning itself!!!
+
+#http://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html
+
