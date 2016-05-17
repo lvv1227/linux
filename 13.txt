@@ -1,0 +1,4 @@
+#!/bin/sh
+#Runtime linking
+
+#include main.c and makefile into commect as an example of runtime linking
