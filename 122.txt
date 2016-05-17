@@ -37,3 +37,13 @@ nm libHello.so
 
 #http://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html
 
+#using the first target (all)
+make
+
+#using the clean target
+make clean
+
+#the libs used by the exe or other lib
+ldd hello
+ldd libHello.so
+
