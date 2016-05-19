@@ -2,3 +2,14 @@
 #Runtime linking
 
 #include main.c and makefile into commect as an example of runtime linking
+
+
+Using rpath
+
+Now let’s try rpath (first we’ll clear LD_LIBRARY_PATH to ensure it’s rpath that’s finding our library). Rpath, or the run path, is a way of embedding the location of shared libraries in the executable itself, instead of relying on default locations or environment variables. We do this during the linking stage. Notice the lengthy “-Wl,-rpath=/home/username/foo” option. The -Wl portion sends comma-separated options to the linker, so we tell it to send the -rpath option to the linker with our working directory.
+
+$ unset LD_LIBRARY_PATH
+$ gcc -L/home/username/foo -Wl,-rpath=/home/username/foo -Wall -o test main.c -lfoo
+$ ./test
+This is a shared library test...
+Hello, I'm a shared library
