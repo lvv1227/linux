@@ -1,0 +1,3 @@
+#!/bin/sh
+
+man 3 getopt #functions for accepting arguments into functions
