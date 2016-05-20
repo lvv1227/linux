@@ -1,0 +1,30 @@
+dw	delete word
+d$	delete to the end of the line
+motions	w,e  next word, $ end of the line
+2w	two words forward
+0	start of the line
+dd	delete a whole line
+p	Type  p  to put previously deleted text after the cursor.
+c	change operator
+ce	removes the word from cursor and goes into insert mode
+c$	same but to the end of the line
+G	move to the end of the file
+gg	start of the file
+5G	move to the 5th line
+/word	search for the word, n - the next word
+%	switch to matching parentheses
+:!ls	execute ls and get back
+o	open a line below cursor and switch to the insert mode
+O	above
+I	insert into the beginning of the string
+:5	goto line 5
+:e file	edit file and then return to command line
+CTR+u, CTR+d  Page Up / Page Down
+shift+v		selecting a line
+> <	moving a selected block
+:tabnew	name 	create a tab
+:tabn	next tab
+:tabp	previous tab
+:tabs	list of tabs
+
+
