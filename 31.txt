@@ -1,0 +1,20 @@
+man 2 open - C functions to work with files
+main flags - O_RDONLY, O_WRONLY, O_RDWR
+fcntl - manipulate file descriptor
+readdir - read a directory
+stat filename - инфо о файле в тч inode
+при жесткой ссылке тот же inode
+если мягкая ссылкая ссылается на имя файл который удалили (даже если остались жесткие ссылки на него), то она становится недействительной
+имя файла - "а ля жесткая ссылка на содержимое файла"
+
+ltrace - A library call tracer
+strace - trace system calls and signals
+strace ./hello
+mount - список файл систем
+cd /proc/
+ls (id процессов)
+echo $$ - id текущего bash?
+cd в директорию id
+cat status
+cat /proc/cpuinfo | less
+pstree - дерево процессов
