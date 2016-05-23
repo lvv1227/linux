@@ -31,7 +31,8 @@ main (int argc, char **argv)
 
       c = getopt_long (argc, argv, "abc:d:f:",
                        long_options, &option_index);
-
+      printf("c=%d\n",c);
+	printf("optopt=%d\n",optopt);
       /* Detect the end of the options. */
       if (c == -1)
         break;
