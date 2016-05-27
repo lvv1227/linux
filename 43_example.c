@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <sched.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -15,7 +16,7 @@ int child(void *params){
 
 int main(){
   int c=0;
-  int result=clone(child,child_stack+STACK_SIZE,0,0); //the end of the array is used as the stack is movign backward
+  int result=clone(child,child_stack+STACK_SIZE,CLONE_PARENT,0); //the end of the array is used as the stack is movign backward
   printf("clone result=\%d\n",result);
   
   while(1){
