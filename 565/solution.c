@@ -4,8 +4,9 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <errno.h>              /* error stf       POSIX */
 
-#define SHM_SIZE 1024  /* make it a 1K shared memory segment */
+#define SHM_SIZE 1000  /* make it a 1K shared memory segment */
 
 
 //requesting new shared memory
@@ -21,7 +22,7 @@ int *createAndGetAddess(char *path){
     }
     printf("%d\n",key);
     /*  create the segment: */
-    if ((shmid = shmget(key, SHM_SIZE, 0644 | IPC_CREAT)) == -1) {
+    if ((shmid = shmget(key, SHM_SIZE, 0666 | IPC_CREAT)) == -1) {
         perror("shmget");
         exit(1);
     }
@@ -41,14 +42,16 @@ int *createAndGetAddess(char *path){
 int *getAddress(int key){
     int shmid;
     char *data;
-    if ((shmid = shmget(key, SHM_SIZE, 0644)) == -1) {
+    if ((shmid = shmget(key, SHM_SIZE, 0666)) == -1) {
         printf("error getting id, id=%d\n",key);
+        printf("errno=%d\n",errno);
         exit(1);
     }
     
     data = shmat(shmid, (void *)0, 0);
     if (data == (char *)(-1)) {
         printf("error getting address, id=%d\n",key);
+        printf("errno=%d\n",errno);
         exit(1);
     }
     return (int *)data;
@@ -77,10 +80,10 @@ int main(int argc, char *argv[])
     int shmid;
     char *data;
     int mode;
-    if (argc!=2){
-        perror("argc should be 2\n");
-	printf("argc=%d\n",argc);
-    }
+    //if (argc!=2){
+   //     perror("argc should be 2\n");
+	//    printf("argc=%d\n",argc);
+   // }
     
     //get segment 1
     int id1=atoi(argv[1]);
