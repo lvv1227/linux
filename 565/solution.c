@@ -7,50 +7,60 @@
 
 #define SHM_SIZE 1024  /* make it a 1K shared memory segment */
 
+//get shared memore address for existing id
+int *getAddress(int id){
+    int shmid;
+    char *data;
+    if ((shmid = shmget(key, SHM_SIZE, 0644)) == -1) {
+        printf("error getting id, id=%d\n",id);
+        exit(1);
+    }
+    
+    data = shmat(shmid, (void *)0, 0);
+    if (data == (char *)(-1)) {
+        printf("error getting address, id=%d\n",id);
+        exit(1);
+    }
+    return (int *)data;
+}
+void print(int *p1,int *p2){
+    int i;
+    for (i=0;i<10;i++){
+        int val1=*(p1+i);
+        int val2=*(p2+i);
+        printf("%d\n",val1+val2)
+    }
+    
+}
 int main(int argc, char *argv[])
 {
     key_t key;
     int shmid;
     char *data;
     int mode;
-
-    if (argc > 2) {
-        fprintf(stderr, "usage: shmdemo [data_to_write]\n");
-        exit(1);
+    if (argc!=2){
+        perror("argc should be 2");
     }
-
-    /* make the key: */
-    if ((key = ftok("hello.txt", 'R')) == -1) /*Here the file must exist */ 
-{
-        perror("ftok");
+    
+    //get segment 1
+    int id1=atoi(argv[1]);
+    if(id1==0){
         exit(1);
+        printf("wrong id 1");
     }
-
-    /*  create the segment: */
-    if ((shmid = shmget(key, SHM_SIZE, 0644 | IPC_CREAT)) == -1) {
-        perror("shmget");
+    int id2=atoi(argv[2]);
+    if(i2==0){
         exit(1);
+        printf("wrong id 2");
     }
+    
+    int *a1=getAddress(id1);
+    int *a2=getAddress(id2);
+    
+    print(a1,a2);
 
-    /* attach to the segment to get a pointer to it: */
-    data = shmat(shmid, (void *)0, 0);
-    if (data == (char *)(-1)) {
-        perror("shmat");
-        exit(1);
-    }
-
-    /* read or modify the segment, based on the command line: */
-    if (argc == 2) {
-        printf("writing to segment: \"%s\"\n", argv[1]);
-        strncpy(data, argv[1], SHM_SIZE);
-    } else
-        printf("segment contains: \"%s\"\n", data);
-
-    /* detach from the segment: */
-    if (shmdt(data) == -1) {
-        perror("shmdt");
-        exit(1);
-    }
+   
+   
 
     return 0;
 }
