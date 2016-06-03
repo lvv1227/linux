@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
 
     /* read or modify the segment, based on the command line: */
     
-    printf("reading from segment");
-    printf(data);
+    //printf("reading from segment");
+    printf("reading from segment %s\n",(char *)data);
     
 
     /* detach from the segment: */

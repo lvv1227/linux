@@ -18,7 +18,7 @@ int *createAndGetAddess(char *path){
         perror("ftok");
         exit(1);
     }
-
+    printf("key=%d\n",key);
     /*  create the segment: */
     if ((shmid = shmget(key, SHM_SIZE, 0644 | IPC_CREAT)) == -1) {
         perror("shmget");
@@ -26,12 +26,12 @@ int *createAndGetAddess(char *path){
     }
 
     /* attach to the segment to get a pointer to it: */
-    data = shmat(shmid, (void *)0, 0);
-    if (data == (char *)(-1)) {
+    int *data = shmat(shmid, (void *)0, 0);
+    if (data == (int *)(-1)) {
         perror("shmat");
         exit(1);
     }
-    return (int *)data;
+    return data;
 }
 
 void closeData(void *p){
@@ -44,7 +44,7 @@ void closeData(void *p){
 //put 10 numbers
 void fillData(int *p){
     int i;
-    for(int i=0;i<10;i++){
+    for(i=0;i<10;i++){
         *(p+i)=i;
     }
 }
