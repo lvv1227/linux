@@ -44,7 +44,7 @@ void closeData(void *p){
 //put 10 numbers
 void fillData(int *p){
     int i;
-    for(i=0;i<10;i++){
+    for(i=0;i<100;i++){
         *(p+i)=i;
     }
 }
