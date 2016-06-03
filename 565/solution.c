@@ -32,6 +32,7 @@ void print(int *p1,int *p2){
     }
     
 }
+//usage ./solution key1 key2
 int main(int argc, char *argv[])
 {
     key_t key;
