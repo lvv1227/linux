@@ -7,21 +7,14 @@
 
 #define SHM_SIZE 1024  /* make it a 1K shared memory segment */
 
-int main(int argc, char *argv[])
-{
-    key_t key;
-    int shmid;
-    char *data;
-    int mode;
-
-    if (argc > 2) {
-        fprintf(stderr, "usage: shmdemo [data_to_write]\n");
-        exit(1);
-    }
-
+//requesting new shared memory
+int *createAndGetAddess(char *path){
     /* make the key: */
-    if ((key = ftok("hello.txt", 'R')) == -1) /*Here the file must exist */ 
-{
+    int shmid;
+    key_t key;
+    
+    if ((key = ftok(path, 'R')) == -1) /*Here the file must exist */ 
+    {
         perror("ftok");
         exit(1);
     }
@@ -38,19 +31,43 @@ int main(int argc, char *argv[])
         perror("shmat");
         exit(1);
     }
+    return (int *)data;
+}
 
-    /* read or modify the segment, based on the command line: */
-    if (argc == 2) {
-        printf("writing to segment: \"%s\"\n", argv[1]);
-        strncpy(data, argv[1], SHM_SIZE);
-    } else
-        printf("segment contains: \"%s\"\n", data);
-
-    /* detach from the segment: */
-    if (shmdt(data) == -1) {
+void closeData(void *p){
+    //detach from segment
+    if (shmdt(p) == -1) {
         perror("shmdt");
         exit(1);
     }
+}
+//put 10 numbers
+void fillData(int *p){
+    int i;
+    for(int i=0;i<10;i++){
+        *(p+i)=i;
+    }
+}
+
+int main()
+{
+    key_t key;
+    int shmid;
+    char *data;
+    int mode;
+
+    int *p1=createAndGetAddess("hello1.txt");
+    int *p2=createAndGetAddess("hello2.txt");
+    fillData(p1);
+    fillData(p2);
+
+    closeData(p1);
+    closeData(p2);
+
+    
+
+    /* detach from the segment: */
+    
 
     return 0;
 }
