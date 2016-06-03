@@ -19,7 +19,7 @@ int *createAndGetAddess(char *path){
         perror("ftok");
         exit(1);
     }
-    printf("key=%d\n",key);
+    printf("%d\n",key);
     /*  create the segment: */
     if ((shmid = shmget(key, SHM_SIZE, 0644 | IPC_CREAT)) == -1) {
         perror("shmget");
@@ -65,7 +65,7 @@ void print(int *p1,int *p2,int *out){
     for (i=0;i<100;i++){
         int val1=*(p1+i);
         int val2=*(p2+i);
-        printf("%d\n",val1+val2);
+        //printf("%d\n",val1+val2);
         *(out+i)=val1+val2;
     }
     
