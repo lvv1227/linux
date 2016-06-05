@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 
 int main(int argc, char *argv[]){
 	FILE *fp;
@@ -11,6 +11,11 @@ int main(int argc, char *argv[]){
 	strcat(str," ");
 	strcat(str,argv[2]);
 	
+  /*
+  The popen() function opens a process by creating a pipe,  forking,  and
+       invoking  the shell
+  */
+  
 	if (( fp = popen(str, "r")) == NULL){
                  perror("popen");
                  exit(1);         
