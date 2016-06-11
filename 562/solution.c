@@ -11,12 +11,12 @@ int main(){
   fd_set inset;
   int sum=0;
   
-  if((fds[0]=open("p1",O_RDONLY | O_NONBLOCK)) <0){
+  if((fds[0]=open("in1",O_RDONLY | O_NONBLOCK)) <0){
     perror("open p1");
     return 1;
   }
   
-  if((fds[1]=open("p2",O_RDONLY | O_NONBLOCK)) <0){
+  if((fds[1]=open("in2",O_RDONLY | O_NONBLOCK)) <0){
     perror("open p2");
     return 1;
   }
